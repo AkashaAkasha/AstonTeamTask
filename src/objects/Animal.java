@@ -1,11 +1,16 @@
-public class Animal {
+package objects;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public final class Animal implements Comparable<Animal>, Serializable{
     private final String kind;
     private final String yearColor;
     private final boolean isHair;
 
     public Animal(Builder builder) {
         this.kind = builder.kind;
-        this.yearColor =builder.yearColor;
+        this.yearColor = builder.yearColor;
         this.isHair = builder.isHair;
     }
 
@@ -37,6 +42,25 @@ public class Animal {
         public Animal build(){
             return new Animal(this);
         }
+    }
+
+    @Override
+    public int compareTo(Animal other) {
+
+        int kindComp = String.CASE_INSENSITIVE_ORDER.compare(this.kind, other.kind);
+        if (kindComp != 0) {
+            return kindComp;
+        }
+        int colorComp = String.CASE_INSENSITIVE_ORDER.compare(this.yearColor, other.yearColor);
+        if (colorComp != 0) {
+            return colorComp;
+        }
+        return (this.isHair && other.isHair)? 0: -1;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(kind, color, isHair);
     }
 
     @Override

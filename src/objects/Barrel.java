@@ -1,5 +1,10 @@
-public class Barrel {
-    private final double volume;
+package objects;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public final class Barrel implements Comparable<Barrel>, Serializable{
+    private final int volume;
     private final String storedMaterial;
     private final String barrelMaterial;
 
@@ -10,11 +15,11 @@ public class Barrel {
     }
 
     public static class Builder{
-        private final double volume;
+        private final int volume;
         private String storedMaterial = "Water";
         private String barrelMaterial = "Plastic";
 
-        public Builder(double volume) {
+        public Builder(int volume) {
             if (volume < 5 || volume > 100) {
                 throw new IllegalArgumentException("Volume must be between 5 and 100.");
             }
@@ -41,6 +46,26 @@ public class Barrel {
             return new Barrel(this);
         }
     }
+    @Override
+    public int compareTo(Barrel other) {
+
+        int volumeComp = Integer.compare(this.volume, other.volume);
+        if (volumeComp != 0) {
+            return volumeComp;
+        }
+        int storedComp = String.CASE_INSENSITIVE_ORDER.compare(this.storedMaterial, other.storedMaterial);
+        if (storedComp != 0) {
+            return storedComp;
+        }
+        return String.CASE_INSENSITIVE_ORDER.compare(this.barrelMaterial, other.barrelMaterial);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(volume, storedMaterial, barrelMaterial);
+    }
+
+
     @Override
     public String toString() {
         return "Barrel {" +
