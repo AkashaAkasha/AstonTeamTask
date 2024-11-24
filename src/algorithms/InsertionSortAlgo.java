@@ -2,9 +2,13 @@ package algorithms;
 
 import java.util.*;
 
-public class insertionSortAlgo {
+public class InsertionSortAlgo implements SortStrategy{
+    @Override
+    public static <T extends Comparable<T>> void sort(List<T> list){
+        insertionSort(list);
+    }
 
-    public static <T extends Comparable<T>> void insertionSort(List<T> list) {
+    private static <T extends Comparable<T>> void insertionSort(List<T> list) {
         int i, x = 0;
         T key;
         for ( i = 1; i<list.size(); ++i){
