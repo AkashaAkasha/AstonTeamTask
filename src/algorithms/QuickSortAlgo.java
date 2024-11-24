@@ -2,7 +2,8 @@ package algorithms;
 
 import java.util.*;
 
-public class QuickSortAlgo {
+public class QuickSortAlgo implements SortStrategy{
+    @Override
     public static <T extends Comparable<T>> void sort(List<T> list){
         quickSort(list,0,list.size()-1);
     }
