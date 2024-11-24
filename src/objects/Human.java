@@ -1,4 +1,9 @@
-public class Human {
+package objects;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public final class Human implements Comparable<Human>, Serializable{
     private final String surname;
     private final Gender gender;
     private final int age;
@@ -37,6 +42,25 @@ public class Human {
         public Human build() {
             return new Human(this);
         }
+    }
+
+    @Override
+    public int compareTo(Human other) {
+
+        int surnameComp = String.CASE_INSENSITIVE_ORDER.compare(this.surname, other.surname);
+        if (surnameComp != 0) {
+            return surnameComp;
+        }
+        int ageComp = Integer.compare(this.age, other.age);
+        if (ageComp != 0) {
+            return ageComp;
+        }
+        return this.gender.equals(other.gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surname, gender, age);
     }
 
     @Override
