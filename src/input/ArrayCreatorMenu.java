@@ -1,5 +1,7 @@
 package input;
+import algorithms.BinarySearchAlgo;
 import algorithms.InsertionSortAlgo;
+import algorithms.SortContext;
 import objects.Animal;
 import objects.Barrel;
 import objects.Gender;
@@ -8,6 +10,7 @@ import objects.Human;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class ArrayCreatorMenu {
 
@@ -43,21 +46,44 @@ public class ArrayCreatorMenu {
                 System.out.println("Некорректный ввод");
                 continue;
             }
+            SortContext sortContext = new SortContext(new InsertionSortAlgo());
+            BinarySearchAlgo Bs = new BinarySearchAlgo();
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
                     switch (classType){
                         case 1:
                             List<Animal> animals = createAnimalListManually(length);
-                            InsertionSortAlgo.sort(animals);
+                            System.out.println("Заданный массив: " + animals.toString());
+                            System.out.print("Введите слово: ");
+                            String str = scanner.nextLine();
+                            //int index = BinarySearchAlgo.findByKey(animals, str);
+                            try{
+                                sortContext.sort(animals);
+                            }catch(Exception e){
+                                System.out.println("");
+                            }
+                            System.out.println("Отсортированный массив: " + animals.toString());
                             break;
                         case 2:
                             List<Barrel> barrels = createBarrelListManually(length);
-                            InsertionSortAlgo.sort(barrels);
+                            System.out.println("Заданный массив: " + barrels.toString());
+                            try{
+                                sortContext.sort(barrels);
+                            }catch(Exception e){
+                                System.out.println("");
+                            }
+                            System.out.println("Отсортированный массив: " + barrels.toString());
                             break;
                         case 3:
                             List<Human> people = createHumanListManually(length);
-                            InsertionSortAlgo.sort(people);
+                            System.out.println("Заданный массив: " + people.toString());
+                            try{
+                                sortContext.sort(people);
+                            }catch(Exception e){
+                                System.out.println("");
+                            }
+                            System.out.println("Отсортированный массив: " + people.toString());
                             break;
                     }
 

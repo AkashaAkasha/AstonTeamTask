@@ -60,7 +60,7 @@ public final class Animal implements Comparable<Animal>, Serializable{
 
     @Override
     public int hashCode() {
-        return Objects.hash(kind, color, isHair);
+        return Objects.hash(kind, yearColor, isHair);
     }
 
     @Override
