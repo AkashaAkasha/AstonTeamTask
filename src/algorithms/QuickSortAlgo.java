@@ -4,18 +4,18 @@ import java.util.*;
 
 public class QuickSortAlgo implements SortStrategy{
     @Override
-    public static <T extends Comparable<T>> void sort(List<T> list){
+    public <T extends Comparable<T>> void sort(List<T> list){
         quickSort(list,0,list.size()-1);
     }
 
-    private static <T extends Comparable<T>> void quickSort(List<T> list, int low, int high) {
+    private <T extends Comparable<T>> void quickSort(List<T> list, int low, int high) {
             int left = low;
             int right = high;
-            int pivot = list.get(left);
+            T pivot = list.get(left);
             
             while (left <= right)
             {
-                while (list.get(left).compateTo(pivot)<0)
+                while (list.get(left).compareTo(pivot)<0)
                     left++;
                 while (list.get(right).compareTo(pivot)>0)
                     right--;
@@ -23,7 +23,7 @@ public class QuickSortAlgo implements SortStrategy{
                     //swap
                     T temp = list.get(left);
                     list.set( left, list.get(right));
-                    list.set( right, list.get(temp));
+                    list.set( right, temp);
                     
                     left++;
                     right--;
