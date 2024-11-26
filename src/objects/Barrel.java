@@ -4,47 +4,43 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public final class Barrel implements Comparable<Barrel>, Serializable{
-    private final int volume;
-    private final String storedMaterial;
-    private final String barrelMaterial;
+    private int volume;
+    private String storedMaterial;
+    private String barrelMaterial;
 
-    public Barrel(Builder builder) {
+    private Barrel(BarrelBuilder builder) {
+        super();
         this.volume = builder.volume;
         this.storedMaterial = builder.storedMaterial;
         this.barrelMaterial = builder.barrelMaterial;
     }
+    public static BarrelBuilder builder(){
+        return new BarrelBuilder();
+    } 
 
-    public static class Builder{
-        private final int volume;
-        private String storedMaterial = "Water";
-        private String barrelMaterial = "Plastic";
+    public static class BarrelBuilder{
+        private int volume;
+        private String storedMaterial;
+        private String barrelMaterial;
 
-        public Builder(int volume) {
-            if (volume < 5 || volume > 100) {
-                throw new IllegalArgumentException("Volume must be between 5 and 100.");
-            }
+        public BarrelBuilder volume (int volume) {
             this.volume = volume;
+            return this;
         }
-
-        public Builder storedMaterial(String storedMaterial) {
-            if (storedMaterial == null || storedMaterial.trim().isEmpty()) {
-                throw new IllegalArgumentException("Stored Material cannot be null or empty.");
-            }
+     
+        public BarrelBuilder storedMaterial(String storedMaterial) {
             this.storedMaterial = storedMaterial;
             return this;
         }
-
-        public Builder barrelMaterial(String barrelMaterial) {
-            if (barrelMaterial == null || barrelMaterial.trim().isEmpty()) {
-                throw new IllegalArgumentException("Barrel Material cannot be null or empty.");
-            }
+        
+        public BarrelBuilder barrelMaterial(String barrelMaterial) {
             this.barrelMaterial = barrelMaterial;
             return this;
         }
-
+    
         public Barrel build(){
-            return new Barrel(this);
-        }
+            return new Barrel(this);  
+        } 
     }
     @Override
     public int compareTo(Barrel other) {
