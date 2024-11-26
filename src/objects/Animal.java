@@ -4,44 +4,43 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public final class Animal implements Comparable<Animal>, Serializable{
-    private final String kind;
-    private final String yearColor;
-    private final boolean isHair;
+    private  String kind;
+    private  String yearColor;
+    private  boolean isHair;
 
-    public Animal(Builder builder) {
+    private Animal(AnimalBuilder builder) {
+        super();
         this.kind = builder.kind;
         this.yearColor = builder.yearColor;
         this.isHair = builder.isHair;
     }
+    public static AnimalBuilder builder(){
+        return new AnimalBuilder();
+    } 
 
-    public static class Builder{
-        private final String kind;
-        private String yearColor = "brown";
-        private boolean isHair = true;
+    public static class AnimalBuilder{
+        private  String kind;
+        private String yearColor;
+        private boolean isHair;
 
-        public Builder(String kind) {
-            if (kind == null || kind.trim().isEmpty()) {
-                throw new IllegalArgumentException("Kind cannot be null or empty.");
-            }
+        public AnimalBuilder kind (String kind) {
             this.kind = kind;
+            return this;
         }
-
-        public Builder yearColor(String yearColor) {
-            if (yearColor == null || yearColor.trim().isEmpty()) {
-                throw new IllegalArgumentException("Color cannot be null or empty.");
-            }
+     
+        public AnimalBuilder yearColor(String yearColor) {
             this.yearColor = yearColor;
             return this;
         }
-
-        public Builder isHair(boolean isHair) {
+        
+        public AnimalBuilder age(boolean isHair) {
             this.isHair = isHair;
             return this;
         }
-
+    
         public Animal build(){
-            return new Animal(this);
-        }
+            return new Animal(this);  
+        } 
     }
 
     @Override

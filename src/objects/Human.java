@@ -4,44 +4,43 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public final class Human implements Comparable<Human>, Serializable{
-    private final String surname;
-    private final Gender gender;
-    private final int age;
+    private String surname;
+    private Gender gender;
+    private int age;
 
-    public Human(Builder builder) {
+    private Human(HumanBuilder builder) {
         this.surname = builder.surname;
         this.gender = builder.gender;
         this.age = builder.age;
     }
 
-    public static class Builder{
-        private final String surname;
-        private Gender gender = Gender.MAN;
-        private int age = 18;
+    public static HumanBuilder builder(){
+        return new HumanBuilder();
+    } 
 
-        public Builder(String surname) {
-            if (surname == null || surname.trim().isEmpty()) {
-                throw new IllegalArgumentException("Surname cannot be null or empty.");
-            }
+    public static class HumanBuilder{
+        private String surname;
+        private Gender gender;
+        private int age;
+
+        public HumanBuilder surname (String surname) {
             this.surname = surname;
+            return this;
         }
-
-        public Builder gender(Gender gender) {
+     
+        public HumanBuilder gender(Gender gender) {
             this.gender = gender;
             return this;
         }
-
-        public Builder age(int age) {
-            if (age < 0 || age > 120) {
-                throw new IllegalArgumentException("Age must be between 0 and 120.");
-            }
+        
+        public HumanBuilder age(int age) {
             this.age = age;
             return this;
         }
-
-        public Human build() {
-            return new Human(this);
-        }
+    
+        public Human build(){
+            return new Human(this);  
+        } 
     }
 
     @Override
